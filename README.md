@@ -17,21 +17,37 @@ In the critics dataset each record represents a critic review published on Rotte
 **Columns :**
 
 rotten_tomatoes_link: URL to the Rotten Tomatoes page for the movie
+
 movie_title: Title of the movie
+
 movie_info: Additional information about the movie
+
 critics_consensus: Consensus summary from critics
+
 content_rating: Content rating of the movie
+
 genres: Genres of the movie
+
 directors: Directors of the movie
+
 authors: Authors of the movie (e.g., screenplay writers)
+
 actors: Actors in the movie
+
 original_release_date: Original release date of the movie
+
 streaming_release_date: Date when the movie was made available for streaming
+
 runtime: Duration of the movie in minutes
+
 production_company: Production company that produced the movie
+
 tomatometer_status: Status of the Tomatometer (e.g., Fresh, Rotten)
+
 tomatometer_rating: Rating given by critics (Tomatometer score)
+
 tomatometer_count: Total number of critic reviews
+
 audience_status: Status of the audience rating
 audience_rating: Rating given by the audience
 audience_count: Number of audience reviews
