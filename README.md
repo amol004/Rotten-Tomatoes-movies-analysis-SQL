@@ -1,8 +1,4 @@
 # SQL-Case-Study-on-Rotten-Tomatoes-dataset
-**Introduction**
-
-This repository contains a SQL case study focusing on a movie dataset sourced from Kaggle. The dataset provides detailed information about movies, including various metrics on critic and audience ratings.
-
 
 
 **About Dataset**
