@@ -60,3 +60,25 @@ tomatometer_fresh_critics_count: Number of fresh critic reviews
 
 tomatometer_rotten_critics_count: Number of rotten critic reviews
 
+
+**Objectives**
+
+The SQL case study aims to:
+
+Analyze the distribution of movie ratings across different genres.
+
+Compare critic ratings with audience ratings.
+
+Identify trends in movie ratings over time.
+
+Explore the relationship between critic reviews and the tomatometer rating.
+
+**Approach**
+
+Data Cleaning: Handle missing values and inconsistencies in the dataset.
+
+Data Analysis: Write SQL queries to extract insights from the dataset.\
+
+Visualization: Generate reports and visualizations based on the SQL query results (if applicable).
+
+
