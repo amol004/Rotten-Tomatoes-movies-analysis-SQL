@@ -1,0 +1,1 @@
+# SQL-Case-Study-on-Rotten-Tomatoes-dataset
