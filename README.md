@@ -49,9 +49,14 @@ tomatometer_rating: Rating given by critics (Tomatometer score)
 tomatometer_count: Total number of critic reviews
 
 audience_status: Status of the audience rating
+
 audience_rating: Rating given by the audience
+
 audience_count: Number of audience reviews
+
 tomatometer_top_critics_count: Number of reviews from top critics
+
 tomatometer_fresh_critics_count: Number of fresh critic reviews
+
 tomatometer_rotten_critics_count: Number of rotten critic reviews
 
