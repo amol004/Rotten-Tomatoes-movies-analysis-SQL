@@ -77,4 +77,70 @@ Data Analysis: Write SQL queries to extract insights from the dataset.\
 
 Visualization: Generate reports and visualizations based on the SQL query results (if applicable).
 
+* SQL Queries and Findings
+1. Movies with the Highest Tomatometer Rating
+
+       SELECT movie_title, tomatometer_rating 
+       FROM movies 
+       WHERE tomatometer_rating = 100;
+![1](https://github.com/user-attachments/assets/3257506b-4333-44d6-8c5a-a56dade3ff8e)
+
+Out of 14446 movies only 542 movies have 100% ratings that is only 4% of all the movies released.
+
+2. Find top 10 movies which have highest both tomatometer_rating and audience_rating.
+
+          SELECT movie_title, tomatometer_rating, audience_rating , 
+          ROUND((tomatometer_rating+audience_rating)/2,1) AS average_rating
+          FROM movies 
+          ORDER BY average_rating DESC LIMIT 10;
+   ![2](https://github.com/user-attachments/assets/51f15392-7856-4cc4-abc3-607061ecc0b4)
+
+3. How many movies out of total have tomatometer_rating more than the average_tomatometer_ratings.
+
+       with cte as(
+       SELECT COUNT(*) AS total_movies, ROUND(AVG(tomatometer_rating),2) AS average_ratings,
+       SUM(CASE 
+	     WHEN tomatometer_rating > (SELECT AVG(tomatometer_rating) FROM movies) THEN 1 
+      	ELSE 0 END) AS more_than_avg FROM movies) 
+       SELECT total_movies, average_ratings,  more_than_avg, 
+       ROUND((more_than_avg/total_movies)*100,2) AS movies_percentage_more_than_avg 
+       FROM cte;
+
+4. Find the top 10 longest movie and top 10 shortest movie and compare their tomatometer_ratings as well as audience_rating.
+
+       (SELECT movie_title, runtime, tomatometer_rating, audience_rating FROM movies
+       ORDER BY runtime DESC LIMIT 10)
+       UNION ALL
+       (SELECT movie_title, runtime, tomatometer_rating, audience_rating FROM movies
+       ORDER BY runtime ASC LIMIT 10);
+![e4](https://github.com/user-attachments/assets/b3b4b95d-6476-44a5-975a-705c2c06fbc9)
+
+5. Find movies which have highest tomatometer_ratings and where tomatometer_top_critic counts is more than 65.
+
+       SELECT movie_title, runtime, tomatometer_rating, audience_rating, tomatometer_top_critics_count FROM movies
+       WHERE tomatometer_top_critics_count >65
+       ORDER BY tomatometer_rating DESC;
+![e5](https://github.com/user-attachments/assets/87f77d38-5d31-4697-8c30-5510484ca2c0)
+
+6. Find the TOP 20 movie for which the difference between original_release_date and streaming_release_date is maximum in months.
+
+       SELECT movie_title, runtime, tomatometer_rating, original_release_date, streaming_release_date,
+       ABS(timestampdiff(YEAR, streaming_release_date, original_release_date)) AS time_diff FROM movies 
+       ORDER BY time_diff  DESC LIMIT 20;
+
+
+![6](https://github.com/user-attachments/assets/eac56dcd-86da-42a6-b52f-61bd76cdd422)
+
+7. Find all the movies made by top three director who have made atleast 10 movies in terms of tomatometer_ratings.
+
+        WITH CTE AS(
+        SELECT lead_director, COUNT(*) as movie_count, ROUND(AVG(tomatometer_rating),2) as avg_rating FROM movies 
+        GROUP BY lead_director 
+        HAVING movie_count > 10 ORDER BY AVG(tomatometer_rating) DESC LIMIT 3)
+        SELECT movie_title, runtime, tomatometer_rating, audience_rating, lead_director
+        FROM movies WHERE lead_director IN (SELECT lead_director FROM CTE);
+
+   
+
+   
 
