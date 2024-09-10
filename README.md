@@ -1,9 +1,9 @@
-# SQL-Case-Study-on-Rotten-Tomatoes-dataset
+# Rotten-Tomatoes-movies-analysis-SQL
 
 
 **About Dataset**
 
-*Context*
+
 
 Movies' data is stored on several popular websites, but when it comes to critic reviews there is no better place than Rotten Tomatoes. This website allows to compare the ratings given by regular users (audience score) and the ratings given/reviews provided by critics (tomatometer) who are certified members of various writing guilds or film critic-associations.
 
@@ -139,6 +139,43 @@ Out of 14446 movies only 542 movies have 100% ratings that is only 4% of all the
         HAVING movie_count > 10 ORDER BY AVG(tomatometer_rating) DESC LIMIT 3)
         SELECT movie_title, runtime, tomatometer_rating, audience_rating, lead_director
         FROM movies WHERE lead_director IN (SELECT lead_director FROM CTE);
+
+![7](https://github.com/user-attachments/assets/d736c15b-954d-494c-b117-5cd0d8969f0c)
+
+Director Akira Kurosawa has the highest ratings whereas William Wyler has made most number of movies with good ratings.
+
+8. Find the best movie of each year in terms of ratings.
+
+
+		WITH ranked_movies AS (
+		    SELECT movie_title, original_release_date, average_rating, genres,
+		        YEAR(original_release_date) AS release_year,
+		        ROW_NUMBER() OVER (PARTITION BY YEAR(original_release_date) ORDER BY average_rating DESC) AS ranking
+		    FROM movies)
+		SELECT movie_title,  original_release_date, average_rating , genres
+		FROM ranked_movies WHERE ranking = 1;
+
+![8](https://github.com/user-attachments/assets/0c4404dd-4f91-4dff-b730-ad6e5f07e9d6)
+
+Out of 105 years of movie data, for about 35 years, the genre 'Art House & International' has produced the best movies.
+The genres 'Western' and 'Musical & Performing Arts' each have the best movie for only one year.
+
+9. What are the top 5 actors in terms of audience ratings with at least 10 movies.
+
+
+		SELECT lead_actor, ROUND(AVG(audience_rating),2) AS avg_rating, COUNT(*) AS movie_count
+		    FROM movies
+		    GROUP BY lead_actor
+		    HAVING movie_count >= 10 ORDER BY avg_rating DESC LIMIT 5;
+![9](https://github.com/user-attachments/assets/ac86526f-e386-4801-8ea9-39053fe714fb)
+
+10. Find number of movies done by each actor and their average audience rating.
+
+
+		SELECT lead_actor, COUNT(*) AS movie_count, ROUND(AVG(audience_rating),2) AS avg_rating
+		FROM movies GROUP BY lead_actor ORDER BY movie_count DESC;
+
+![10](https://github.com/user-attachments/assets/b18ae084-6ad5-4536-96e7-fa4864349563)
 
    
 
